@@ -1,0 +1,21 @@
+# Install to: /etc/systemd/system/acer-power-behavior.service
+
+[Unit]
+Description=Acer Swift 3 Power Management Configuration
+After=multi-user.target
+Before=sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/acer-power-behavior.sh
+SyslogIdentifier=acer-power-behavior
+
+# Security hardening
+PrivateTmp=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/sys/devices /proc/acpi
+
+[Install]
+WantedBy=multi-user.target
